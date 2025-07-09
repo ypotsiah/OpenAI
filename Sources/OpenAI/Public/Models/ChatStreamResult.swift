@@ -224,6 +224,18 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
         case serviceTier = "service_tier"
     }
     
+    public init(id: String, object: String, created: TimeInterval, model: String, choices: [Choice], systemFingerprint: String?, usage: ChatResult.CompletionUsage?, serviceTier: ServiceTier?, citations: [String]?) {
+        self.id = id
+        self.object = object
+        self.created = created
+        self.model = model
+        self.choices = choices
+        self.systemFingerprint = systemFingerprint
+        self.usage = usage
+        self.serviceTier = serviceTier
+        self.citations = citations
+    }
+    
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let parsingOptions = decoder.userInfo[.parsingOptions] as? ParsingOptions ?? []
