@@ -9,7 +9,7 @@ func updated(_ string: String?, with anotherString: String?) -> String? {
 }
 
 extension ChatStreamResult.Choice.ChoiceDelta.ChoiceDeltaToolCall.ChoiceDeltaToolCallFunction {
-    func merged(with chunk: Self) -> Self {
+    public func merged(with chunk: Self) -> Self {
         .init(
             arguments: updated(arguments, with: chunk.arguments),
             name: updated(name, with: chunk.name)
@@ -18,7 +18,7 @@ extension ChatStreamResult.Choice.ChoiceDelta.ChoiceDeltaToolCall.ChoiceDeltaToo
 }
 
 extension ChatStreamResult.Choice.ChoiceDelta.ChoiceDeltaToolCall {
-    func merged(with chunk: Self) -> Self {
+    public func merged(with chunk: Self) -> Self {
         var function: ChoiceDeltaToolCallFunction?
         if let selfFunction = self.function, let chunkFunction = chunk.function {
             function = selfFunction.merged(with: chunkFunction)
@@ -39,7 +39,7 @@ extension ChatStreamResult.Choice.ChoiceDelta.ChoiceDeltaToolCall {
 }
 
 extension ChatStreamResult.Choice.ChoiceDelta {
-    func merged(with chunk: Self) -> Self {
+    public func merged(with chunk: Self) -> Self {
         var updatedToolCalls = toolCalls
         
         // merge tool calls if needed
@@ -66,7 +66,7 @@ extension ChatStreamResult.Choice.ChoiceDelta {
 }
 
 extension ChatStreamResult.Choice {
-    func merged(with chunk: Self) -> Self {
+    public func merged(with chunk: Self) -> Self {
         .init(
             index: index,
             delta: delta.merged(with: chunk.delta),
@@ -77,7 +77,7 @@ extension ChatStreamResult.Choice {
 }
 
 extension ChatStreamResult {
-    func merged(with chunk: Self) -> Self {
+    public func merged(with chunk: Self) -> Self {
         var updatedChoices = choices
         
         // merge choices
